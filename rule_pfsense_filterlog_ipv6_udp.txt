@@ -1,0 +1,44 @@
+// pfSense Graylog Pipeline Rules
+// Copyright (C) 2017 Wagner Sartori Junior
+//
+// This program is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the Free
+// Software Foundation, either version 3 of the License, or (at your option)
+// any later version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or
+// FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+// more details.
+//
+// You should have received a copy of the GNU General Public License along with
+// this program.  If not, see <http://www.gnu.org/licenses/>.
+
+rule "pfSense filterlog: IPv6 UDP"
+when
+  regex("^.*,(in|out),6,.*,(?i)udp,.*$", to_string($message.message)).matches == true
+then
+  // needs ,0 in the end to don't allow trailing strings not being splitted if empty
+  let msg = concat(to_string($message.message), ",0");
+  let m = split(",", msg);
+  set_field("RuleNumber", m[0]);
+  set_field("SubRuleNumber", m[1]);
+  set_field("Anchor", m[2]);
+  set_field("Tracker", m[3]);
+  set_field("Interface", m[4]);
+  set_field("Reason", m[5]);
+  set_field("Action", m[6]);
+  set_field("Direction", m[7]);
+  set_field("IPVersion", m[8]);
+  set_field("Class", m[9]);
+  set_field("FlowLabel", m[10]);
+  set_field("HopLimit", m[11]);
+  set_field("Protocol", m[12]);
+  set_field("ProtocolID", m[13]);
+  set_field("Length", m[14]);
+  set_field("SourceIP", m[15]);
+  set_field("DestIP", m[16]);
+  set_field("SourcePort", m[17]);
+  set_field("DestPort", m[18]);
+  set_field("DataLength", m[19]);
+end

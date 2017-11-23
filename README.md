@@ -29,7 +29,7 @@ Example:
 
 ## Additional scripts
 
-`generate_fields_from_csv.awk` will help you to generate new rules based on CSV extractor rules
+`generate_fields_from_csv.awk` will help you to generate new rules based on existing CSV extractors.
 
 Example
 
@@ -60,6 +60,12 @@ $ echo "RuleNumber,SubRuleNumber,Anchor,Tracker,Interface,Reason,Action,Directio
 ## Authors
 
 * **Wagner Sartori Junior** - *Initial work* - [trunet](https://github.com/trunet)
+
+## Contributors
+
+Some of these rules were ported from:
+
+* https://github.com/Hobadee/Graylog_Extractors_pfSense
 
 ## License
 
