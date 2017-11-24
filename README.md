@@ -9,6 +9,20 @@ Graylog doesn't support pipeline in content packs yet, in the future this will b
 
 ## Getting Started
 
+### Install syslog-ng package
+
+* Services/syslog-ng/General Enable the service, set Interface to your LAN and port 5140
+* Services/syslog-ng/Advanced Add:
+* Object Type: Destination, Object Name: graylog
+
+`{ syslog("[your_graylog_ip]" transport(udp) port(514)); };`
+
+* Object Type: Log, Object Name: sent_to_graylog
+
+`{ source(_DEFAULT); destination(graylog); };`
+
+* Status/System Logs/Settings Enable Remote Logging, Source Address LAN, IPv4, Remote Log Server [your_pfsense_lan_ip]:5140, and select Everything
+
 ### Create a new stream
 
 Example:
